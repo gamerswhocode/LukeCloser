@@ -6,7 +6,7 @@ public class LukeMove : MonoBehaviour {
 	private Ray ray;	
 	private Camera mainCamera;
 	private NavMeshAgent agent;
-	public bool moving = false;
+	private bool isMoving = false;
 	// Use this for initialization
 	void Start () {	
 		mainCamera = GameObject.FindGameObjectWithTag ("MainCamera").camera;
@@ -21,26 +21,27 @@ public class LukeMove : MonoBehaviour {
 			ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 			if (Physics.Raycast(ray, out hit)) {
 				Vector3 objectHit = hit.point;
+				if(hit.transform.gameObject.GetComponent<SceneObject>()!= null)
+				{	
+					Debug.Log("Found scene object");
+					SendMessage("WillInteract",hit.transform.gameObject.GetComponent<SceneObject>());
+				}
 				Debug.Log("Will move i guess");
 				agent.SetDestination(objectHit);
+				isMoving = true;
 			}
 		}
 
-		if (agent.velocity.magnitude > 0) 
+		if (!agent.pathPending && isMoving)
 		{
-			if(!moving){
-				GetComponent<Animator> ().SetBool ("Moving", true);
-				moving = true;
-			}
-		} 
-		else
-		{
-			if(moving)
+			if (agent.remainingDistance <= agent.stoppingDistance)
 			{
-				GetComponent<Animator> ().SetBool ("Moving", false);
-				moving = false;
+				if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
+				{
+					SendMessage("OnInteracted");
+					isMoving = false;
+				}
 			}
-		}
-	
+		}	
 	}
 }
