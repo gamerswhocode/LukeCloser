@@ -23,10 +23,9 @@ public class LukeMove : MonoBehaviour {
 				Vector3 objectHit = hit.point;
 				if(hit.transform.gameObject.GetComponent<SceneObject>()!= null)
 				{	
-					Debug.Log("Found scene object");
 					SendMessage("WillInteract",hit.transform.gameObject.GetComponent<SceneObject>());
 				}
-				Debug.Log("Will move i guess");
+				SendMessage("OnChangedPath");
 				agent.SetDestination(objectHit);
 				isMoving = true;
 			}

@@ -16,8 +16,6 @@ public class PlayerInteract : MonoBehaviour {
 
 	public void WillInteract(SceneObject sceneObject)
 	{
-		
-		Debug.Log("preparing for interaction");
 		sceneObject.PrepareForInteraction (this);
 		isExpectingInteraction = true;
 	}
@@ -31,5 +29,11 @@ public class PlayerInteract : MonoBehaviour {
 		}
 	}
 
+	public void OnChangedPath()
+	{
+		ChangedPath (this, null);
+	}
+
 	public event InteractionHandler Interacted;
+	public event ChangedPathHandler ChangedPath;
 }

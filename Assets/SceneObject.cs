@@ -18,6 +18,7 @@ public class SceneObject : MonoBehaviour {
 	{
 		playerInteract = player;
 		playerInteract.Interacted += new InteractionHandler (Interact);		
+		playerInteract.ChangedPath += new ChangedPathHandler (CancelInteraction);
 		Debug.Log (gameObject.name + " subscribed to interaction!");
 	}
 
@@ -26,5 +27,12 @@ public class SceneObject : MonoBehaviour {
 		SendMessage("OnInteraction",e as object);
 		Debug.Log (gameObject.name + " interacted!");
 		playerInteract.Interacted -= new InteractionHandler (Interact);
+	}
+
+	public void CancelInteraction(object sender, System.EventArgs e)
+	{
+		playerInteract.Interacted -= new InteractionHandler (Interact);			
+		playerInteract.ChangedPath -= new ChangedPathHandler (CancelInteraction);
+		Debug.Log (gameObject.name + " unsubscribed to interaction!");
 	}
 }
