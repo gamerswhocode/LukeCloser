@@ -12,7 +12,7 @@ namespace AssemblyCSharp
 {
 		public class DoorMaster
 		{
-			private static readonly DoorMaster instance = new Singleton();
+			private static readonly DoorMaster instance = new DoorMaster();
 				
 				
 			static DoorMaster()
@@ -30,6 +30,19 @@ namespace AssemblyCSharp
 					return instance;
 				}
 			}
+			
+		public void StartTransition()
+		{
+			TransitionStarted (this, null);
+		}
+
+		public void EndTransition()
+		{
+			TransitionEnded (this, null);
+		}
+
+			public event TransitionStartedHandler TransitionStarted;
+			public event TransitionEndedHandler TransitionEnded;
 		}
 }
 

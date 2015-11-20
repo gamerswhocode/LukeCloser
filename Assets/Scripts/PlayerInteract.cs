@@ -24,7 +24,7 @@ public class PlayerInteract : MonoBehaviour {
 	{
 		if(isExpectingInteraction)
 		{
-			Interacted (this, null);
+			Interacted (gameObject, null);
 			isExpectingInteraction = false;
 		}
 	}

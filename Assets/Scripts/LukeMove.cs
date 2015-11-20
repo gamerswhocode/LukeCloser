@@ -20,12 +20,12 @@ public class LukeMove : MonoBehaviour {
 		{
 			ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 			if (Physics.Raycast(ray, out hit)) {
+				SendMessage("OnChangedPath");
 				Vector3 objectHit = hit.point;
 				if(hit.transform.gameObject.GetComponent<SceneObject>()!= null)
 				{	
 					SendMessage("WillInteract",hit.transform.gameObject.GetComponent<SceneObject>());
 				}
-				SendMessage("OnChangedPath");
 				agent.SetDestination(objectHit);
 				isMoving = true;
 			}
