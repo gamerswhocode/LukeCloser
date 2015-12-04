@@ -31,7 +31,7 @@ public class PlayerInteract : MonoBehaviour {
 
 	public void OnChangedPath()
 	{
-		ChangedPath (this, null);
+		ChangedPath (gameObject, null);
 	}
 
 	public event InteractionHandler Interacted;

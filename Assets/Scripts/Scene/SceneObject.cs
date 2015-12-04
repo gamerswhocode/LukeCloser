@@ -20,15 +20,13 @@ public class SceneObject : MonoBehaviour {
 		playerInteract = player;
 		playerInteract.Interacted += new InteractionHandler (Interact);		
 		playerInteract.ChangedPath += new ChangedPathHandler (CancelInteraction);
-		DoorMaster.Instance.StartTransition ();
 		Debug.Log (gameObject.name + " subscribed to interaction!");
 	}
 
 	public void Interact(object sender,System.EventArgs e)
 	{
-		SendMessage("OnInteraction",e as object);
+		SendMessage("OnInteraction",sender as object);
 		Debug.Log (gameObject.name + " interacted!");
-		DoorMaster.Instance.EndTransition ();
 		playerInteract.Interacted -= new InteractionHandler (Interact);
 	}
 
@@ -36,7 +34,6 @@ public class SceneObject : MonoBehaviour {
 	{
 		playerInteract.Interacted -= new InteractionHandler (Interact);			
 		playerInteract.ChangedPath -= new ChangedPathHandler (CancelInteraction);
-		DoorMaster.Instance.EndTransition ();
 		Debug.Log (gameObject.name + " unsubscribed to interaction!");
 	}
 }

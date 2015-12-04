@@ -5,7 +5,8 @@ using AssemblyCSharp;
 
 public class TransitionListener : MonoBehaviour {
 
-	public float targeFarDist = 100f;
+	public float targeFarDist = 60f;
+	private bool transited = false;
 
 	// Use this for initialization
 	void Start () {
@@ -21,18 +22,24 @@ public class TransitionListener : MonoBehaviour {
 		}
 		else if (camera.farClipPlane<targeFarDist) 
 		{
-			camera.farClipPlane += 3f;
+			camera.farClipPlane += 3f;	
+		}
+		else{
+			if(transited)
+			{
+				DoorMaster.Instance.GoTransition();		
+				transited = false;
+			}
 		}
 	}
 
 	public void FadeOut(object sender,EventArgs e)
 	{
-		targeFarDist = 4f;
-		Debug.Log("will fade out");
+		targeFarDist = 3f;
+		transited = true;
 	}
 	public void FadeIn(object sender,EventArgs e)
 	{
-		targeFarDist = 100f;
-		Debug.Log("will fade in");
+		targeFarDist = 60f;
 	}
 }

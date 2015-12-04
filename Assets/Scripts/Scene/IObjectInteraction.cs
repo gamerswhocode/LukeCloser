@@ -12,7 +12,7 @@ namespace AssemblyCSharp
 {
 		public interface IObjectInteraction
 		{
-			void OnInteraction(object args);
+			void OnInteraction(object sender);
 		}
 }
 
